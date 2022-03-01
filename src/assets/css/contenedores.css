@@ -1,0 +1,10 @@
+/* Contenedores y cards */
+.container-fluid {
+    padding: 0 !important;
+    vertical-align: bottom;
+    font-size: 8pt;
+}
+
+.card {
+    font-size: 8pt;
+}

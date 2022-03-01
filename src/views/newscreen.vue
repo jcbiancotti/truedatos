@@ -1,6 +1,8 @@
 <template>
 <div class="container-fluid">
-    <h1>Estoy fuera</h1>
+
+    <h1>Hola mundo</h1>
+
 </div>
 </template>
 

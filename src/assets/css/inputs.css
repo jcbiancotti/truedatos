@@ -1,0 +1,78 @@
+
+
+.form-control {
+    font-size: 8pt !important; 
+    resize: vertical !important;
+    border-radius: 5px !important;
+    resize: vertical !important;
+    border: 1px solid var(--true-button-border) !important;
+}
+.form-control:focus {
+    border: 1px solid blue !important;
+}
+
+.input-group input {
+    font-size: 8pt !important; 
+    border-radius: 5px !important;
+    margin-bottom: 5px;
+}
+
+.form-select {
+    color: var(--true-button-color);
+    height: 32px !important;
+    font-size: 8pt !important; 
+    border-radius: 5px !important;  
+    margin-bottom: 5px;   
+}
+input[type="text"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+}
+
+input[type="number"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+    width: 100px;
+}
+input[type="date"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+    width: auto;
+}
+input[type="datetime-local"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+    width: auto;
+}
+input[type="time"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+    width: auto;    
+}
+input[type="password"] {
+    height: 32px !important;
+    font-size: 8pt;
+    border-radius: 5px !important;
+    width: auto;    
+}
+input[type="file"] {
+    display: none;
+}
+
+
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:  rgb(192,192,192,0.8) !important;
+    opacity: 1 !important; /* Firefox */
+}
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:  rgb(192,192,192,0.8) !important;
+}
+input::-ms-input-placeholder { /* Microsoft Edge */
+    color:  rgb(192,192,192,0.8) !important;
+}
+

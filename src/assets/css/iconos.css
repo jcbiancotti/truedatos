@@ -1,0 +1,14 @@
+.iconos {
+    color: var(--true-button-color);
+    background-color: transparent;
+}
+.iconos-neg {
+    color: var(--true-button-background);
+    background-color: transparent;
+}
+.inline-icon {
+   vertical-align: middle;
+   font-size: 18px !important;
+   border: 0px;
+   background-color: transparent;
+}

@@ -1,0 +1,92 @@
+/* NAV LISTAS Y TABS */
+.nav {
+    padding-left: 10px;
+}
+/* BARRA SUPERIOR */
+.navbar-true {
+    display: flex; 
+    align-items: center;    
+    border: 1px solid var(--true-background-color); 
+    background-color: var(--true-color-empresa); 
+    height: 40px; 
+    line-height: 40px;
+}
+
+.nav-item {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-hover-color);
+    background-color: transparent;
+    border-color: var(--true-button-hover-border); 
+}
+
+/* Pestaña seleccionada */
+.nav-pills .nav-link.active,
+.show > .nav-pills {
+    font-size: 8px;
+    margin: 2px;
+    padding: 10px;    
+    background: var(--true-button-hover-background) !important;
+}
+
+.nav-pills .nav-link.disabled,
+.show > .nav-pills {
+    font-size: 8px;
+    margin: 2px;
+    padding: 10px;    
+    background: rgb(191, 191, 191) !important;
+}
+
+/* Resto de pestañas */
+.nav-pills .nav-link,
+.show > .nav-pills {
+    font-size: 8px;
+    margin: 2px;
+    padding: 10px;    
+    color: var(--true-button-hover-color);
+    background: var(--true-button-color) !important;
+}
+
+/* Sobre las pestañas no seleccionadas */
+.nav-pills .nav-link:hover,
+.show > .nav-pills {
+    font-size: 8px;
+    margin: 2px;
+    padding: 10px;    
+    color: var(--true-button-hover-color-plus);
+    background: var(--true-button-color) !important;
+}
+
+/* Grabar */
+.nav-item:hover {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-hover-color-plus);
+    font-weight: bold;
+    background-color: transparent;
+    border-color: transparent; 
+
+}
+ul, li,
+.dropdown-menu {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-color);
+    background-color: var(--true-button-background);
+    border-color: var(--true-button-border); 
+}
+.dropdown-item {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-color);
+    background-color: var(--true-button-background);
+    border-color: var(--true-button-border); 
+}
+.dropdown-item:hover {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-color);
+    background-color: var(--true-button-background);
+    border-color: var(--true-button-border);
+    font-weight: bold; 
+}

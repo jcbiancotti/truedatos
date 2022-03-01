@@ -1,0 +1,30 @@
+/* FUENTES ADICIONALES */
+@font-face {
+    font-family: "Trash-Hand";
+    src: url("fuentes/TrashHand.ttf") format("TrueType");
+}
+@font-face {
+    font-family: "ZapfDingbats";
+    src: url("fuentes/ZapfDingbats.ttf") format("TrueType");
+}
+
+/* ASPECTO GENERAL DE LA APP */
+#app {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: var(--true-letras-color);
+}
+
+/* COMPONENTES COMUNES */
+@import "contenedores.css";
+@import "componentes.css";
+@import "textos.css";
+@import "navegacion.css";
+@import "buttons.css";
+@import "inputs.css";
+@import "iconos.css";
+@import "listas.css";
+@import "checkbox.css";
+@import "tablas.css";

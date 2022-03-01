@@ -1,0 +1,60 @@
+/* BUTTONS */
+.btn {
+    background-color: var(--true-button-background);
+    color: var(--true-button-color);
+    border: 2px solid var(--true-button-border);
+    font-size: 8pt;
+    height: auto;
+    width: auto;
+    border-radius: 35px;
+
+    padding-top: 5px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px; 
+     
+}
+.btn:hover, .btn:hover > * {
+    color: var(--true-button-hover-color);
+    background-color: var(--true-button-hover-background);
+    border-color: var(--true-button-hover-border);
+    border-radius: 35px;
+}
+
+.btn:disabled {
+    color: var(--true-button-disabled-color);
+    background-color: var(--true-button-disabled-background);
+    border-color: var(--true-button-disabled-border);
+}
+.btn[disabled]:hover {
+    color: var(--true-button-disabled-color);
+    background-color: var(--true-button-disabled-background);
+    border-color: var(--true-button-disabled-border);
+}
+/* BOTON CON EL MENU DE APP */
+.btn-user, .btn-user > * {
+    color: var(--true-button-hover-color);
+    background-color: transparent;
+    border: none;
+    font-size: 8pt;
+    padding-left: 3px;
+}
+.btn-user:hover, .btn-user:hover > * {
+    font-size: 8pt;
+    padding-left: 3px;
+    color: var(--true-button-hover-color-plus);
+    background-color: transparent;
+    border: none;
+}
+/* BOTONES CON SOLO UN ICONO */
+.btn-img, .btn-img > * {
+    color: var(--true-button-color);
+    background-color: transparent;
+    border: none;
+    font-size: 18pt;
+    padding: 3px;
+}
+.btn-img:hover, .btn-img:hover > * {
+    color: var(--true-button-hover-background);
+    cursor: pointer;
+}

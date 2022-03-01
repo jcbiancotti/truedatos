@@ -1,0 +1,47 @@
+/* Textos */
+label {
+    font-size: 8pt;
+    height: auto;
+    margin-right: 15px !important;
+}
+.conerror {
+    border: 2px solid red;
+    color: red;
+    background-color: var(--true-background-error);
+}
+.sinerror {
+    border: 2px solid var(--true-border-color);
+    color: var(--true-letras-color);
+}
+.mensaje {
+    font-size: 8pt;
+    color: red;
+    font-weight: bold;
+}
+h1 {
+    font-size: 12pt;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 5px;
+    color: var(--true-color-empresa);
+}
+h2 {
+    padding: 5px;;
+    font-size: 11pt;
+}
+h3 {
+    padding: 5px;
+    font-size: 10pt;
+}
+h4 {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 9pt;
+}
+h5 {
+    padding: 5px;
+    font-size: 8pt;
+}
+p {
+   font-size: 8pt; 
+}

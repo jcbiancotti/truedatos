@@ -1,0 +1,24 @@
+/* Para fijar el encabezado de la tabla y desplazar los registros */
+.tableFixHead { 
+    overflow-y: auto; 
+    height: 200px; 
+    text-align: left;
+}
+.tableFixHead thead th { 
+    position: sticky; 
+    top: 0; 
+}
+
+/* Just common table stuff. Really. */
+table  { 
+    border-collapse: collapse; 
+    width: 100%; 
+}
+th, td { 
+    padding: 8px 16px; 
+}
+th { 
+    background:#eee; 
+}
+
+
