@@ -245,24 +245,31 @@
 
                             <div v-for="tarea of tDiferencias" :key="tarea.idx">
 
-                                <div class="input-group text-left" style="bacground-color: grey;cursor: pointer;">
-                                    <div class="text-center" style="width:5%;">
-                                        {{tarea.idx}}
-                                    </div>                
+                                <div class="input-group text-left text-left" style="cursor: pointer;">
+
                                     <div style="width:15%;">
                                         <span v-if="tarea.criticidad == 0" class="iconos inline-icon btn-img material-icons" style="color:green;" title="Sin acción necesaria">check_circle_outline</span>
                                         <span v-if="tarea.criticidad == 1" class="iconos inline-icon btn-img material-icons" style="color:red;" title="Error bloqueante">error</span>
                                         <span v-if="tarea.criticidad == 2" class="iconos inline-icon btn-img material-icons" style="color:yellow;" title="Advertencia">warning</span>
                                     </div>
-                                    <div style="width:50%;padding-right:5px;">
+                                    <div style="width:55%;padding-right:5px;">
                                         {{tarea.mensaje}}
                                     </div>
-                                    <div style="width:30%;">
+                                    <div style="width:25%;">
                                         <span v-if="tarea.hecha == 1" class="iconos inline-icon btn-img material-icons" style="color:green;" title="Realizado con exito">check_circle_outline</span>
                                         <span v-if="tarea.hecha == 2" class="iconos inline-icon btn-img material-icons" style="color:red;" title="Realizado con exito">error</span>
                                         <span>Accion:</span>
                                         {{tarea.accion}}
                                     </div>
+                                    <div style="width:5%;">
+                                        <span @click="tarea.verSQL = !tarea.verSQL" v-if="tarea.sql != '' && tarea.verSQL == false" class="iconos inline-icon btn-img material-icons" title="Ver instrucción SQL">visibility</span>
+                                        <span @click="tarea.verSQL = !tarea.verSQL" v-if="tarea.sql != '' && tarea.verSQL == true"  class="iconos inline-icon btn-img material-icons" title="Ocultar instrucción SQL">visibility_off</span>
+                                    </div>  
+                                    <div style="width:15%;" v-if="tarea.sql != '' && tarea.verSQL == true"></div>                                          
+                                    <div style="width:85%;color:grey;padding-bottom: 10px;" v-if="tarea.sql != '' && tarea.verSQL == true">
+                                        {{tarea.sql}}
+                                    </div>  
+
                                 </div>
 
                             </div>
@@ -388,8 +395,8 @@
                                         </div>                                               
 
                                     </td>
-                                    <td>
-
+                                    <td style="color:red;">
+                                        {{tMensaje}}
                                     </td>
                                 </tr>
                             </table>
@@ -410,9 +417,10 @@
                             <tr v-for="registro of modelo.oTabla.oCampos" :key="registro.id">
                                 <td>{{registro.nombre}}</td>
                                 <td>  
+                                    <!-- {{registro.tipo}} -->
                                     {{ttipos[ttipos.findIndex(x => x.id === registro.tipo)].literal}}
                                 </td>
-                                <td><span v-if="registro.tipo=='C' || registro.tipo=='N' || registro.tipo=='M'">{{registro.ancho}}</span></td>
+                                <td><span v-if="registro.tipo=='C' || registro.tipo=='A' || registro.tipo=='N' || registro.tipo=='M'">{{registro.ancho}}</span></td>
                                 <td><span v-if="registro.tipo=='N' || registro.tipo=='M'">{{registro.decimales}}</span></td>
                                 <td>{{registro.etiqueta}}</td>
                                 <td v-if="registro.tipo=='K' && registro.default==true">SI</td>
@@ -682,6 +690,7 @@ export default {
             ldescripcion: '',
             lorden: 0,
             // nuevo campo en la tabla
+            tMensaje: '',
             T_id: funciones.generarUUID2(),
             tnombre: '',
             ttipo: '0',
@@ -1198,6 +1207,7 @@ export default {
             this.tlabel = '';
             this.tdefault = '';
             
+            this.tMensaje = '';
             this.$refs.nuevo_cnombre.focus();
 
         },
@@ -1206,14 +1216,21 @@ export default {
             let existe = this.modelo.oTabla.oCampos.findIndex(x => x.nombre === this.tnombre);
             let editando = this.modelo.oTabla.oCampos.findIndex(x => x.id === this.T_id);
 
-            if(this.tnombre == '' || this.ttipo == '0' || this.tancho == 0 || (existe != -1 && editando == -1)) {
+            if(this.tnombre == '' || this.ttipo == '0') {
                 this.$refs.nuevo_cnombre.focus();
+                this.tMensaje = "Faltan datos";
                 return;
             }
+            if(existe != -1 && (editando == -1 || editando != existe)) {
+                this.$refs.nuevo_cnombre.focus();
+                this.tMensaje = "Campo repetido";
+                return;
+            }               
             if( this.tnombre.toLowerCase() == 'clave' || this.tnombre.toLowerCase() == 'id' || this.tnombre.toLowerCase() == 'deleted' || this.tnombre.toLowerCase() == 'deleted_at' ||
                 this.tnombre.toLowerCase() == 'created_at' || this.tnombre.toLowerCase() == 'updated_at') {
                 funciones.popAlert("error", "El nombre de campo '" + this.tnombre.toLowerCase() + "' es un nombre reservado, usa otro nombre", true, false, 4000, "Ok")
                 .then(() => {
+                    this.tMensaje = "Nombre del campo no permitido";
                     this.$refs.nuevo_cnombre.focus();
                 })
                 return;
@@ -1263,6 +1280,8 @@ export default {
             this.tdecimales = this.modelo.oTabla.oCampos[idx].decimales;
             this.tlabel = this.modelo.oTabla.oCampos[idx].etiqueta;
             this.tdefault = this.modelo.oTabla.oCampos[idx].default;
+
+            this.tMensaje = '';
 
         },
         validarDefault(e) {  
@@ -1328,7 +1347,9 @@ export default {
                         this.tDiferencias.push({
                             criticidad: 0,
                             mensaje: "La tabla ya existe",
-                            accion: "nada"
+                            accion: "nada",
+                            sql: '',
+                            verSQL: false
                         })    
 
                         // Existe, recuperar y comprobar campos
@@ -1403,7 +1424,8 @@ export default {
                                                 criticidad: 1,
                                                 mensaje: "[" + aCampos_tabla[x].nombre + "] El campo de la tabla no está en la definición",
                                                 accion: "Eliminar campo de la tabla",
-                                                sql: "ALTER TABLE " + this.modelo.oTabla.nombre + " CHANGE " + aCampos_tabla[x].nombre + " _" + funciones.generarUUID2() + aCampos_tabla[x].nombre + " " + aCampos_tabla[x].col_tipo
+                                                sql: "ALTER TABLE " + this.modelo.oTabla.nombre + " CHANGE " + aCampos_tabla[x].nombre + " _" + funciones.generarUUID2() + aCampos_tabla[x].nombre + " " + aCampos_tabla[x].col_tipo,
+                                                verSQL: false
                                             })                                          
                                         }
 
@@ -1414,15 +1436,16 @@ export default {
                                 // Si los campos clave, id y los de auditoria no están
                                 if(esta_clave == false) {
 
-                                    tmpSQL =  "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN clave INT(11);";                       
+                                    tmpSQL =  "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN clave int(11);";                       
                                     tmpSQL += "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD PRIMARY KEY (clave);";
-                                    tmpSQL += "ALTER TABLE " + this.modelo.oTabla.nombre + " MODIFY clave int(11) NOT NULL AUTO_INCREMENT";
+                                    tmpSQL += "ALTER TABLE " + this.modelo.oTabla.nombre + " MODIFY clave int(11) NOT NULL AUTO_INCREMENT;";
 
                                     this.tDiferencias.push({
                                         criticidad: 2,
                                         mensaje: "Falta el campo 'clave'",
                                         accion: "Crear campo en la tabla",
-                                        sql: tmpSQL
+                                        sql: tmpSQL,
+                                        verSQL: false
                                     })     
 
                                 }
@@ -1432,7 +1455,8 @@ export default {
                                             criticidad: 2,
                                             mensaje: "Falta el campo 'id'",
                                             accion: "Crear campo en la tabla",
-                                            sql: "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN id VARCHAR(13)"
+                                            sql: "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN id VARCHAR(13)",
+                                            verSQL: false
                                         })     
 
                                 }                                
@@ -1477,12 +1501,17 @@ export default {
                                         criticidad: 1,
                                         mensaje: "Faltan campos de auditoría",
                                         accion: "Crear campo en la tabla",
-                                        sql: aud
+                                        sql: aud,
+                                        verSQL: false
                                     })     
 
                                 }
                                 // Los campos definidos no están, crearlos
                                 let dif_estructura = false;
+                                if(this.modelo.oTabla.oCampos.length == 0) {
+                                    dif_estructura = true;
+                                } 
+
                                 for(let x=0; x < this.modelo.oTabla.oCampos.length; x++) {
 
                                     let campo_ya_esta = false;
@@ -1506,7 +1535,8 @@ export default {
                                             criticidad: 1,
                                             mensaje: "[" + this.modelo.oTabla.oCampos[x].nombre + "] El campo de la definición aún no está en la tabla",
                                             accion: "Crear campo en la tabla",
-                                            sql: tmpSQL 
+                                            sql: tmpSQL,
+                                            verSQL: false
                                         })     
                                         dif_estructura = true;
 
@@ -1584,7 +1614,8 @@ export default {
                                                 criticidad: 1,
                                                 mensaje: "[" + this.modelo.oTabla.oCampos[x].nombre + "] El campo de la definición no coincide con el de la tabla. Se perderá el contenido actual del campo.",
                                                 accion: "Transformar campo de la tabla",
-                                                sql: tmpSQL
+                                                sql: tmpSQL,
+                                                verSQL: false
                                             })                                            
                                         }
 
@@ -1598,7 +1629,9 @@ export default {
                                     this.tDiferencias.push({
                                         criticidad: 0,
                                         mensaje: "Los campos de la tabla coinciden con la definición",
-                                        accion: "nada"
+                                        accion: "nada",
+                                        sql: '',
+                                        verSQL: false
                                     })                                       
                                 }
 
@@ -1620,7 +1653,8 @@ export default {
                             criticidad: 1,
                             mensaje: "La tabla no existe",
                             accion: "crear tabla",
-                            sql: tmpSQL
+                            sql: tmpSQL,
+                            verSQL: false
                         })
                         return
                     }
@@ -1641,7 +1675,7 @@ export default {
 
                     let hay_cambios = false;
                     for(let d=0; d < this.tDiferencias.length; d++) {
-                        if(this.tDiferencias[d].criticidad != 0) {
+                        if(this.tDiferencias[d].criticidad != 0) {    // && this.tDiferencias[d].accion != 'crear tabla') {
                             hay_cambios = true;
                             break;
                         }
@@ -1665,6 +1699,8 @@ export default {
                                 for(let m=0; m < this.tDiferencias.length; m++) {
 
                                     // Crear tabla si no existe
+                                    // Agregar la PRIMARY KEY
+                                    // Agregar el autoincremental
                                     if(this.tDiferencias[m].accion == 'crear tabla') {
 
                                         funciones.ejecutaQuery(this.tDiferencias[m].sql, [])
@@ -1672,44 +1708,32 @@ export default {
                                             
                                             if(result.success == 1 && (result.status == 200 || result.status == 204)) {
 
-                                                // Agregar la PRIMARY KEY
-                                                // Agregar el autoincremental
-                                                tmpSQL = "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD PRIMARY KEY (clave);";
-                                                tmpSQL += "ALTER TABLE " + this.modelo.oTabla.nombre + " MODIFY clave int(11) NOT NULL AUTO_INCREMENT";
-                                                funciones.ejecutaQuery(tmpSQL, [])
-                                                .then((result) => {
-                                                    
-                                                    if(result.success == 1 && (result.status == 200 || result.status == 204)) {
+                                                for(let c = 0; c < this.modelo.oTabla.oCampos.length; c++) {
 
-                                                        for(let c = 0; c < this.modelo.oTabla.oCampos.length; c++) {
+                                                    tmpSQL = "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN ";
+                                                    tmpSQL += this.modelo.oTabla.oCampos[c].nombre.toLowerCase();
 
-                                                            tmpSQL = "ALTER TABLE " + this.modelo.oTabla.nombre + " ADD COLUMN ";
-                                                            tmpSQL += this.modelo.oTabla.oCampos[c].nombre.toLowerCase();
+                                                    tmpSQL += this.completartmpSQL(this.modelo.oTabla.oCampos[c]);
 
-                                                            tmpSQL += this.completartmpSQL(this.modelo.oTabla.oCampos[c]);
-
-                                                            // Creación del campo
-                                                            funciones.ejecutaQuery(tmpSQL, [])
-                                                            .then((result) => {
-                                                                
-                                                                if(result.succes != 1 || result != 200) {
-                                                                    err = 1;
-                                                                }
-
-                                                            })
-
-                                                        }
-                                                        if(err == 1) {
-                                                            // Hubo errores
-                                                            funciones.popAlert('error', 'No se ha podido realizar el cambio en este momento', true, false, 8000, "Ok")
-                                                            .then(() => { 
-                                                                return;
-                                                            })                                                   
+                                                    // Creación del campo
+                                                    funciones.ejecutaQuery(tmpSQL, [])
+                                                    .then((result) => {
+                                                        
+                                                        if(result.succes != 1 || result != 200) {
+                                                            err = 1;
                                                         }
 
-                                                    }  
+                                                    })
 
-                                                })
+                                                }
+                                                if(err == 1) {
+                                                    // Hubo errores
+                                                    funciones.popAlert('error', 'No se ha podido realizar el cambio en este momento', true, false, 8000, "Ok")
+                                                    .then(() => { 
+                                                        return;
+                                                    })                                                   
+                                                }
+
                                                 this.tDiferencias[m].hecha = 1;   // Con exito
 
                                             } else {
@@ -1754,24 +1778,28 @@ export default {
             })
 
         },
-        importarDefinicion() {
+        async importarDefinicion() {
+
+            let actuar = true;
 
             if(this.modelo.oTabla.nombre == '') {
                 this.$refs.nombreTabla.focus();
                 return;
             }
 
-            try {
+            // Comprobar si ya existe una definición
+            if(this.modelo.oTabla.oCampos.length > 0) {
+                await funciones.popAlert('warning', 'Quieres remplazar la definición actual?', true, true, 8000, "Sí, remplázala")
+                .then((result) => {
+                    if(result != true) {
+                        actuar = false;
+                    } 
+                })
+            } 
+            if(!actuar)
+                return;
 
-                // Comprobar si ya existe una definición
-                if(this.modelo.oTabla.oCampos.length > 0) {
-                    funciones.popAlert('warning', 'Quieres remplazar la definición actual?', true, true, 8000, "Sí, remplázala")
-                    .then((result) => {
-                        if(result != true) {
-                            return;
-                        } 
-                    })
-                }
+            try {
 
                 this.modelo.oTabla.nombre = this.modelo.oTabla.nombre.split(' ').join('_');
 
@@ -1804,6 +1832,8 @@ export default {
                         if(result.success == 1 && result.status == 200) {
                             
                             aCampos_tabla = [];
+                            this.modelo.oTabla.oCampos = [];
+
                             for(let x=0; x < result.data.length; x++) {
 
                                 if(result.data[x].COLUMN_NAME.substr(0, 1) != '_') {
@@ -1818,7 +1848,81 @@ export default {
                                 }
                             }
 
-                            console.log("Campos", aCampos_tabla);
+                            console.log("Estos son los Campos", aCampos_tabla);
+
+                            for(let c=0; c < aCampos_tabla.length; c++) {
+
+                                let xtipo = '';
+                                let xancho = 0;
+                                let xdecimales = 0;
+
+                                if( aCampos_tabla[c].nombre.toLowerCase() != "clave" &&
+                                    aCampos_tabla[c].nombre.toLowerCase() != "id" &&
+                                    aCampos_tabla[c].nombre.toLowerCase() != "created_at" &&
+                                    aCampos_tabla[c].nombre.toLowerCase() != "updated_at" &&
+                                    aCampos_tabla[c].nombre.toLowerCase() != "deleted" &&
+                                    aCampos_tabla[c].nombre.toLowerCase() != "deleted_at") {
+
+                                    switch(aCampos_tabla[c].dat_tipo.toLowerCase()) {
+                                        case 'varchar':
+                                            xtipo = 'C';
+                                            xancho = aCampos_tabla[c].chr_ancho;
+                                            xdecimales = 0;
+                                            break;
+                                        case 'decimal':
+                                            xtipo = 'N';
+                                            xancho = aCampos_tabla[c].enteros;
+                                            xdecimales = aCampos_tabla[c].decimales;                                        
+                                            break;
+                                        case 'int':
+                                            if(aCampos_tabla[c].col_tipo == 'int(1)') {
+                                                xtipo = 'K';
+                                                xancho = aCampos_tabla[c].chr_ancho;
+                                                xdecimales = 0;     
+                                            } else {
+                                                xtipo = 'N';
+                                                xancho = aCampos_tabla[c].enteros;
+                                                xdecimales = 0;                                             
+                                            }
+                                            break;
+                                        case 'text':
+                                            xtipo = 'A';
+                                            xancho = aCampos_tabla[c].chr_ancho;
+                                            xdecimales = 0;                                        
+                                            break;
+                                        case 'date':
+                                            xtipo = 'D';
+                                            xancho = 0;
+                                            xdecimales = 0;                                        
+                                            break;
+                                        case 'datetime':
+                                        case 'timestamp':
+                                            xtipo = 'T';
+                                            xancho = 0;
+                                            xdecimales = 0;                                               
+                                            break;
+                                        case 'time':
+                                            xtipo = 'H';
+                                            xancho = 0;
+                                            xdecimales = 0;                                               
+                                            break;  
+                                    }                                
+
+                                    this.modelo.oTabla.oCampos.push({
+                                        id:        funciones.generarUUID2(),
+                                        nombre:    aCampos_tabla[c].nombre,
+                                        tipo:      xtipo,
+                                        ancho:     xancho,
+                                        decimales: xdecimales,
+                                        etiqueta:  aCampos_tabla[c].nombre,
+                                        default:   ''               
+                                    })
+
+                                }
+
+                            }
+
+                            console.log("Campos definición", this.modelo.oTabla.oCampos)
 
                         }
                     })
