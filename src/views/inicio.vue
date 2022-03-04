@@ -3,7 +3,7 @@
     
     <telon :hidden="hiddentelon"/>
     
-    <!-- LISTA DE DOCUMENTOS -->
+    <!-- LISTA DE ENTIDADES -->
     <div class="card-deck">
 
         <div class="row row-cols-1 row-cols-md-4 g-4 p-2" >
