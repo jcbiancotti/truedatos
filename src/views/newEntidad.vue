@@ -607,7 +607,7 @@
                                 </td>
                                 <td class="text-start">
                                     <select ref="selectableValor" class="form-select" v-model="modelo.oSelectable.campo_valor">
-                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.id">{{q.descripcion}}</option>
+                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -619,7 +619,7 @@
                                 </td>
                                 <td class="text-start">
                                     <select ref="selectableDescripcion" class="form-select" v-model="modelo.oSelectable.campo_descripcion">
-                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.id">{{q.descripcion}}</option>
+                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -2077,7 +2077,7 @@ export default {
                 descripcion: 'Selecciona un campo ...'
             }];
 
-            if(this.modelo.oSelectable.idQuery == 0) {
+            if(this.modelo.oSelectable.idQuery == '0') {
                 return;
             }
 
@@ -2090,6 +2090,8 @@ export default {
 
                     if(result.success == 1 && result.status == 200) {
 
+                        this.icadenaSQL = '';
+
                         // Recuperar la cadena de la consulta
                         let tmp_modelo = JSON.parse(result.data[0].objeto.split('&quot;').join('"'));
                         let tmp_icadenaSQL = tmp_modelo.oQuery.cadenaSQL;
@@ -2099,6 +2101,8 @@ export default {
                         .then((result) => {
 
                             if(result.success == 1 && result.status == 200) {
+                                let esta_campo_valor = false;
+                                let esta_campo_descripcion = false;
 
                                 for(let x=0; x < result.data.SELECT.length; x++) {
                                     if(result.data.SELECT[x].base_expr != '*') {
@@ -2106,7 +2110,19 @@ export default {
                                             id: x + 1,
                                             descripcion: result.data.SELECT[x].base_expr
                                         })
+                                        if( result.data.SELECT[x].base_expr == this.modelo.oSelectable.campo_valor) {
+                                            esta_campo_valor = true;
+                                        }
+                                        if( result.data.SELECT[x].base_expr == this.modelo.oSelectable.campo_descripcion) {
+                                            esta_campo_descripcion = true;
+                                        }                                        
                                     }
+                                }
+                                if(esta_campo_valor == false) {
+                                    this.modelo.oSelectable.campo_valor = '0';
+                                }
+                                if(esta_campo_descripcion == false) {
+                                    this.modelo.oSelectable.campo_descripcion = '0';                                
                                 }
 
                             }

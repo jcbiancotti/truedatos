@@ -18,6 +18,8 @@
     color: var(--true-button-hover-color);
     background-color: transparent;
     border-color: var(--true-button-hover-border); 
+    overflow: hidden;
+
 }
 
 /* Pestaña seleccionada */
@@ -62,10 +64,9 @@
     font-size: 8pt;
     padding-left: 3px;
     color: var(--true-button-hover-color-plus);
-    font-weight: bold;
+    /* font-weight: bold; */
     background-color: transparent;
     border-color: transparent; 
-
 }
 ul, li,
 .dropdown-menu {
@@ -86,7 +87,8 @@ ul, li,
     font-size: 8pt;
     padding-left: 3px;
     color: var(--true-button-color);
-    background-color: var(--true-button-background);
+    background-color: var(--true-button-background); 
     border-color: var(--true-button-border);
     font-weight: bold; 
+    
 }

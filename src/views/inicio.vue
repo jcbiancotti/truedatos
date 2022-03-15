@@ -4,13 +4,12 @@
     <telon :hidden="hiddentelon"/>
     
     <!-- LISTA DE ENTIDADES -->
-    <div class="card-deck">
 
-        <div class="row row-cols-1 row-cols-md-4 g-4 p-2" >
+        <div class="row w-100 p-2 w-0">
 
-            <div class="col pt-3" v-for="entidad of aEntidades" :key="entidad.clave">
+            <div class="col-lg-4 mb-2" v-for="entidad of aEntidades" :key="entidad.clave">
 
-                <div class="card h-100">
+                <div class="card mx-auto" style="width:18rem;">
 
                     <div class="card-header text-left" style="line-height:12px;background-color: var(--true-color-empresa);">
                         <p style="color:silver">entidad id: {{entidad.id}}</p>
@@ -18,7 +17,6 @@
                         <span v-if="entidad.tipo == 'T'" class="iconos inline-icon material-icons" style="color: var(--true-button-hover-color);">margin</span>
                         <span v-if="entidad.tipo == 'Q'" class="iconos inline-icon material-icons" style="color: var(--true-button-hover-color);">manage_search</span>
                         <span v-if="entidad.tipo == 'I'" class="iconos inline-icon material-icons" style="color: var(--true-button-hover-color);">fact_check</span>
-
                     </div>
                     <div class="card-body text-justify" style="line-height : 12px;">
 
@@ -42,7 +40,6 @@
 
     </div>
 
-  </div>
 </template>
 
 <script>
