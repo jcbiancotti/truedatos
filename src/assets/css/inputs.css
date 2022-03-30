@@ -3,7 +3,7 @@
 .form-control {
     font-size: 8pt !important; 
     resize: vertical !important;
-    border-radius: 5px !important;
+    border-radius: 5px !important; 
     resize: vertical !important;
     border: 1px solid var(--true-button-border) !important;
 }

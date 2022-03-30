@@ -46,7 +46,7 @@
     background-color: transparent;
     border: none;
 }
-/* BOTONES CON SOLO UN ICONO */
+/* BOTONES QUE SON SOLO UN ICONO */
 .btn-img, .btn-img > * {
     color: var(--true-button-color);
     background-color: transparent;

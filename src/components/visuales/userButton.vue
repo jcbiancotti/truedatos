@@ -1,21 +1,21 @@
 <template>
 <div class="container-fluid">
 
-    <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler float-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="iconos-neg inline-icon material-icons md-48">menu</span>
     </button>
 
-    <div class="collapse navbar-collapse float-right" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse float-end" id="navbarSupportedContent">
         
-        <div class="dropdown navbar-nav ml-auto float-right" v-if="isLogged">
+        <div class="dropdown navbar-nav ml-auto float-end" v-if="isLogged">
 
             <div class="btn-user">
 
                 <span style="color: white;">{{fname}}</span>
-                <button class="dropdown-toggle btn-user" type="button" data-toggle="dropdown">
+                <button class="dropdown-toggle btn-user" type="button" data-bs-toggle="dropdown">
                     <span class="iconos-neg inline-icon material-icons md-48">account_circle</span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right">
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <router-link @click="deleteUserLogged()" to="/" class="dropdown-item">Desconectar
                             <span class="iconos inline-icon material-icons md-48">logout</span> 

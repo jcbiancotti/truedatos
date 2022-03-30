@@ -12,12 +12,14 @@
 
                         <div class="form-group">
                             <label for="correo">Correo electr&oacute;nico</label>
-                            <input type="email" class="form-control" name="correo" id="correo" placeholder="Tu correo electrónico..." v-model="modelo.usuario">
+                            <div class="input-group addon" >
+                                <input type="email" class="form-control" name="correo" id="correo" placeholder="Tu correo electrónico..." v-model="modelo.usuario">
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Contrase&ntilde;a</label>
-                            <div class="input-group addon" >
+                            <div class="input-group addon">
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña..." v-model="modelo.password">
                                 <span class="input-group-text"><i class="fa" :class="{'fa-eye': showpass==false, 'fa-eye-slash': showpass==true}" @click="mostrarPass(1)"></i></span>
                             </div>

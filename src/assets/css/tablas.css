@@ -3,6 +3,7 @@
     overflow-y: auto; 
     height: 200px; 
     text-align: left;
+    width: 100%; 
 }
 .tableFixHead thead th { 
     position: sticky; 

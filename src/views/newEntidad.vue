@@ -22,11 +22,12 @@
 
 
     <ul class="nav nav-pills" role="tablist">
-        <li class="nav-item"><a class="nav-link" :class="{active : tab == 1}" @click="tab=1" data-toggle="tab" href="#datos-generales">Datos generales</a></li>
-        <li class="nav-item"><a class="nav-link" :class="{active : tab == 2 && modelo.oDatosGenerales.tipo == 'L', disabled : modelo.oDatosGenerales.tipo != 'L'}" @click="tab=2" data-toggle="tab" href="#datos-lista">Lista de valores</a></li>
-        <li class="nav-item"><a class="nav-link" :class="{active : tab == 3 && modelo.oDatosGenerales.tipo == 'T', disabled : modelo.oDatosGenerales.tipo != 'T'}" @click="tab=3" data-toggle="tab" href="#datos-tabla">Tabla</a></li>
-        <li class="nav-item"><a class="nav-link" :class="{active : tab == 4 && modelo.oDatosGenerales.tipo == 'Q', disabled : modelo.oDatosGenerales.tipo != 'Q'}" @click="tab=4" data-toggle="tab" href="#datos-query">Consulta SQL</a></li>
-        <li class="nav-item"><a class="nav-link" :class="{active : tab == 5 && modelo.oDatosGenerales.tipo == 'I', disabled : modelo.oDatosGenerales.tipo != 'I'}" @click="tab=5" data-toggle="tab" href="#datos-seleccionable">Seleccionable</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 1}" @click="tab=1" data-bs-toggle="tab" href="#datos-generales">Datos generales</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 2 && modelo.oDatosGenerales.tipo == 'L', disabled : modelo.oDatosGenerales.tipo != 'L'}" @click="tab=2" data-bs-toggle="tab" href="#datos-lista">Lista de valores</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 3 && modelo.oDatosGenerales.tipo == 'T', disabled : modelo.oDatosGenerales.tipo != 'T'}" @click="tab=3" data-bs-toggle="tab" href="#datos-tabla">Tabla</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 4 && modelo.oDatosGenerales.tipo == 'Q', disabled : modelo.oDatosGenerales.tipo != 'Q'}" @click="tab=4" data-bs-toggle="tab" href="#datos-query">Consulta SQL</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 5 && modelo.oDatosGenerales.tipo == 'I', disabled : modelo.oDatosGenerales.tipo != 'I'}" @click="tab=5" data-bs-toggle="tab" href="#datos-seleccionable">Seleccionable</a></li>
+        <li class="nav-item"><a class="nav-link" :class="{active : tab == 6}" @click="tab=6" data-bs-toggle="tab" href="#datos-JSON">JSON</a></li>
 
         <li class="nav-item"><a class="nav-link" :class="{active : tab == 9}" @click="Grabar()">Grabar</a></li>
 
@@ -41,7 +42,7 @@
 
         <div v-for="err of errores" :key="err.idx">
 
-            <div @click="enfocar(err.ref, err.tab)" class="input-group text-left" style="bacground-color: grey;cursor: pointer;">
+            <div @click="enfocar(err.ref, err.tab)" class="input-group text-start" style="bacground-color: grey;cursor: pointer;">
                 <div class="text-center" style="width:5%;">
                     {{err.idx}}
                 </div>                
@@ -81,7 +82,7 @@
                    
                         <!-- DESCRIPCION -->
                         <div class="input-group">
-                            <div class="w-50 text-right">
+                            <div class="w-50 text-end">
                                 <label>(*) Descripci&oacute;n:</label>
                             </div>
                             <div class="w-50">                            
@@ -92,7 +93,7 @@
                         <!-- TIPO -->
                         <!-- L: lista de valores  T: tabla   Q: Query  I: Selección para desplegable -->
                         <div class="input-group">
-                            <div class="w-50 text-right">
+                            <div class="w-50 text-end">
                                 <label>(*) Tipo de entidad:</label>
                             </div>
                             <div class="w-50">
@@ -105,7 +106,7 @@
                         <!-- ENTORNO -->
                         <!-- S: Sistema  C: Core, comun a todo el sistema  M: Master, para uso por la empresa Master  G: Gestion, para uso por el cliente empresario -->
                         <div class="input-group">
-                            <div class="w-50 text-right">
+                            <div class="w-50 text-end">
                                 <label>(*) Entorno de disponibilidad:</label>
                             </div>
                             <div class="w-50">    
@@ -136,8 +137,8 @@
                 <div class="card-body">
 
                     <!-- NUEVO REGISTRO -->
-                    <div class="btn-img float-right" @click="expandir('L')">
-                        <h3 class="float-right">Valores</h3>
+                    <div class="btn-img text-end" @click="expandir('L')">
+                        <h3 class="float-end">Valores</h3>
                         <span v-if="L_expanded == false" class="material-icons">add_circle_outline</span>
                         <span v-if="L_expanded == true" class="material-icons">remove_circle_outline</span>
                     </div>
@@ -196,8 +197,6 @@
 
                     </table>
                     </div>
-                    
-
 
                 </div>
 
@@ -227,7 +226,7 @@
 
 
                         <!-- NOMBRE -->
-                        <div class="w-50 text-left input-group addon">
+                        <div class="w-50 text-start input-group addon">
                             <label>(*) Nombre de la tabla:</label>
                             <input ref="nombreTabla" type="text" class="form-control" v-model="modelo.oTabla.nombre" placeholder="Nombre de la tabla">
                         </div> 
@@ -245,7 +244,7 @@
 
                             <div v-for="tarea of tDiferencias" :key="tarea.idx">
 
-                                <div class="input-group text-left text-left" style="cursor: pointer;">
+                                <div class="input-group text-start text-start" style="cursor: pointer;">
 
                                     <div style="width:15%;">
                                         <span v-if="tarea.criticidad == 0" class="iconos inline-icon btn-img material-icons" style="color:green;" title="Sin acción necesaria">check_circle_outline</span>
@@ -277,8 +276,8 @@
                         </div>  
 
                         <!-- NUEVO CAMPO -->
-                        <div class="btn-img float-right" @click="expandir('T')">
-                            <h3 class="float-right">Campos</h3>
+                        <div class="btn-img text-end" @click="expandir('T')">
+                            <h3 class="float-end">Campos</h3>
                             <span v-if="T_expanded == false" class="material-icons">add_circle_outline</span>
                             <span v-if="T_expanded == true" class="material-icons">remove_circle_outline</span>
                         </div>
@@ -459,12 +458,12 @@
                     <form action @submit.prevent="cero">
 
                         <!-- CONSULTA SQL  -->
-                        <div class="w-100 text-left">
+                        <div class="w-100 text-start">
                             <label>(*) Consulta SQL:</label>
-                            <span @click="qComprobar()" class="iconos inline-icon btn-img material-icons float-right" title="Comprobar la consulta">check_circle_outline</span>
+                            <span @click="qComprobar()" class="iconos inline-icon btn-img material-icons float-end" title="Comprobar la consulta">check_circle_outline</span>
                         </div>
-                        <div class="w-100 text-right" v-if="mensageValidacionSQL !=''">
-                            <span @click="mensageValidacionSQL = ''" class="iconos inline-icon btn-img material-icons float-right" style="color: silver;">close</span>
+                        <div class="w-100 text-end" v-if="mensageValidacionSQL !=''">
+                            <span @click="mensageValidacionSQL = ''" class="iconos inline-icon btn-img material-icons float-end" style="color: silver;">close</span>
                             {{mensageValidacionSQL}}
                         </div>
                         <div class="w-100 input-group addon">
@@ -472,8 +471,8 @@
                         </div> 
 
                         <!-- FILTROS-->
-                        <div class="btn-img float-right" @click="expandir('F')">
-                            <h3 class="float-right">Filtros</h3>
+                        <div class="btn-img text-end" @click="expandir('F')">
+                            <h3 class="float-end">Filtros</h3>
                             <span v-if="F_expanded == false" class="material-icons">add_circle_outline</span>
                             <span v-if="F_expanded == true" class="material-icons">remove_circle_outline</span>
                         </div>                        
@@ -573,57 +572,54 @@
 
                     <form action @submit.prevent="cero">
 
-                        <table>
-                            <!-- QUERY -->
-                            <tr>
-                                <td class="text-end">
-                                    <label>(*) Consulta de datos:</label>
-                                </td>
-                                <td class="text-start">
-                                    <select ref="selectableQuery" class="form-select" v-model="modelo.oSelectable.idQuery" @change="cargaCamposConsulta()">
-                                        <option v-for="q of aQuerys" :key="q.id" :disabled="q.id=='0'" :value="q.id">{{q.id}} {{q.descripcion}}</option>
-                                    </select>
-                                </td>
-                                <td class="text-start">
-                                    <span v-if="modelo.oSelectable.idQuery == '0'" class="iconos inline-icon btn-img material-icons" title="Selecciona una consulta">visibility_off</span>
-                                    <span @click="CargaConsulta(modelo.oSelectable.idQuery)" v-if="modelo.oSelectable.idQuery != '0'" class="iconos inline-icon btn-img material-icons" title="Ver consulta">visibility</span>
-                                </td>
-                            </tr>
-                            <tr v-if="modelo.oSelectable.idQuery != '0' && icadenaSQL != ''">
-                                <td colspan="3"> 
-                                    <div  class="w-100 input-group addon pb-4">
-                                        <div class="container-fluid">
-                                            <span @click="icadenaSQL = ''" class="iconos inline-icon btn-img material-icons float-end" title="Cerrar">close</span>
-                                        </div>
-                                        <textarea ref="iconsultasql" id="iconsultasql" class="form-control" disabled rows="5" :maxlength="5000" style="height: 100px;width: 100%;font-family:Courier" v-model="icadenaSQL" placeholder="Consulta SQL completa"></textarea>
-                                    </div>
-                                </td> 
-                            </tr>
+                        <!-- QUERY -->
 
-                            <!-- CAMPO VALOR -->
-                            <tr>
-                                <td class="text-end">
-                                    <label>(*) Campo para el valor:</label>
-                                </td>
-                                <td class="text-start">
-                                    <select ref="selectableValor" class="form-select" v-model="modelo.oSelectable.campo_valor">
-                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
-                                    </select>
-                                </td>
-                            </tr>
+                        <div class="input-group">
+                            <div class="text-end" style="width:50%;">
+                                <label>(*) Consulta de datos:</label>
+                            </div>
+                            <div  style="width:40%;">       
+                                <select ref="selectableQuery" class="form-select" v-model="modelo.oSelectable.idQuery" @change="cargaCamposConsulta()">
+                                    <option v-for="q of aQuerys" :key="q.id" :disabled="q.id=='0'" :value="q.id">{{q.id}} {{q.descripcion}}</option>
+                                </select>                                                     
+                            </div> 
+                            <div class="text-center" style="width:10%;">
+                                <span v-if="modelo.oSelectable.idQuery == '0'" class="iconos inline-icon btn-img material-icons" title="Selecciona una consulta">visibility_off</span>
+                                <span @click="CargaConsulta(modelo.oSelectable.idQuery)" v-if="modelo.oSelectable.idQuery != '0'" class="iconos inline-icon btn-img material-icons" title="Ver consulta">visibility</span>
+                            </div>
+                        </div>
+                        <div v-if="modelo.oSelectable.idQuery != '0' && icadenaSQL != ''">
+                            <div  class="w-100 input-group addon pb-4">
+                                <div class="container-fluid">
+                                    <span @click="icadenaSQL = ''" class="iconos inline-icon btn-img material-icons float-end" title="Cerrar">close</span>
+                                </div>
+                                <textarea ref="iconsultasql" id="iconsultasql" class="form-control" disabled rows="5" :maxlength="5000" style="height: 100px;width: 100%;font-family:Courier" v-model="icadenaSQL" placeholder="Consulta SQL completa"></textarea>
+                            </div>
+                        </div>                        
+                        
+                        <!-- CAMPO VALOR -->
+                        <div class="input-group">
+                            <div class="w-50 text-end">
+                                <label>(*) Campo para el valor:</label>
+                            </div>
+                            <div class="w-50">
+                                <select ref="selectableValor" class="form-select" v-model="modelo.oSelectable.campo_valor">
+                                    <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
+                                </select>
+                            </div>
+                        </div>
 
-                            <!-- CAMPO DESCRIPCION -->
-                            <tr>
-                                <td class="text-end">
-                                    <label>(*) Campo para la descripción:</label>
-                                </td>
-                                <td class="text-start">
-                                    <select ref="selectableDescripcion" class="form-select" v-model="modelo.oSelectable.campo_descripcion">
-                                        <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
+                        <!-- CAMPO DESCRIPCION -->
+                        <div class="input-group">
+                            <div class="w-50 text-end">
+                                <label>(*) Campo para la descripción:</label>
+                            </div>
+                            <div class="w-50">
+                                <select ref="selectableDescripcion" class="form-select" v-model="modelo.oSelectable.campo_descripcion">
+                                    <option v-for="q of aCampos" :key="q.id" :disabled="q.id=='0'" :value="q.descripcion">{{q.descripcion}}</option>
+                                </select>
+                            </div>
+                        </div>
 
                     </form>
 
@@ -634,6 +630,27 @@
 
         </div>
 
+        <!-- JSON -->
+        <div id="datos-JSON" class="container-fluid tab-pane fade " :class="{show : tab == 6, active : tab == 6}"><br>
+
+            <div class="row justify-content-center">
+            <div class="card" style="width: 90%;">
+
+                <div class="card-header">
+                    <h3>JSON</h3>
+                </div>
+                <div class="card-body">
+
+                    <form action @submit.prevent="cero">
+                        <truetree :treemodelo="modelo"/>
+                    </form>
+
+                </div>
+
+            </div>
+            </div>
+
+        </div>  
 
 
     <!-- fin tab panes -->
@@ -648,12 +665,14 @@ import global from '@/utils/global'
 import funciones from '@/utils/funciones'
 import datos from '@/utils/datos'
 import telon from '@/components/visuales/telon'
+import truetree from '@/components/visuales/truetree'
 
 
 export default {
     name: 'NewEntidad',
     components:{
         telon,
+        truetree
 
     },
     data() {
@@ -826,7 +845,6 @@ export default {
                 this.modelo.oQuery.cadenaSQL = '';
                 this.modelo.oQuery.oFiltros = [];
                 this.modelo.oSelectable.idQuery = '';
-                this.modelo.oSelectable.campo_codigo = '';
                 this.modelo.oSelectable.campo_valor = '';
                 this.modelo.oSelectable.campo_descripcion = '';     
                 break;      
@@ -836,7 +854,6 @@ export default {
                 this.modelo.oQuery.cadenaSQL = '';
                 this.modelo.oQuery.oFiltros = [];
                 this.modelo.oSelectable.idQuery = '';
-                this.modelo.oSelectable.campo_codigo = '';
                 this.modelo.oSelectable.campo_valor = '';
                 this.modelo.oSelectable.campo_descripcion = '';     
                 break;    
@@ -846,7 +863,6 @@ export default {
                 this.modelo.oTabla.nombre = '';
                 this.modelo.oTabla.oCampos = [];                                    
                 this.modelo.oSelectable.idQuery = '';
-                this.modelo.oSelectable.campo_codigo = '';
                 this.modelo.oSelectable.campo_valor = '';
                 this.modelo.oSelectable.campo_descripcion = '';     
                 break;                                        
