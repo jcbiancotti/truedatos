@@ -22,7 +22,7 @@ const routes = [
     {
         path: '/inicio',
         name: 'Inicio',
-        component: () => import('@/views/inicio.vue'),
+        component: () => import('@/views/treeInicio.vue'),
         meta: { requiresAuth: true}
     },
     {

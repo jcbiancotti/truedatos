@@ -1,0 +1,129 @@
+.wrapper {
+    display: block;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* top layer */
+    z-index: 9999;
+    overflow-y: auto;
+    text-align: left;
+
+    background: var(--true-menu-background);
+    color: var(--true-menu-color);
+    transition: all 0.3s;
+
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+@media (max-width: 320px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+.nivel0 {
+    margin-left: 0px;
+    border: none;
+    background-color: var(--true-menu-background);
+    font-weight: bold;
+}
+.nivel1 {
+    margin-left: 5px;
+    border: none;  
+    background-color: var(--true-menu-background);
+}
+.nivel2 {
+    margin-left: 10px;
+    background-color: var(--true-menu-background);
+}
+.nivel3 {
+    margin-left: 15px;
+    background-color: var(--true-menu-background);
+}
+.nivel4 {
+    margin-left: 20px;
+    background-color: var(--true-menu-background);
+}
+#sidebar ul {
+    list-style-type: none;
+    width: 240px;
+    font-family: Montserrat, sans-serif;
+    font-size: 11pt;
+}
+
+#sidebar ul li {
+    background-color: var(--true-menu-background);
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+#sidebar ul li a {
+    color: var(--true-menu-color);
+    text-decoration: none;
+    text-transform: none;
+    display: block;
+    padding: 5px 5px 5px 10px;
+
+}
+.dropdown-toggle::after {
+    display: none;
+}
+#sidebar ul li a:hover {
+    background: var(--true-menu-bar-color);
+    color: var(--true-menu-bar-letras);
+}
+
+/* Menu tree de Inicio */
+#main-tree {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    text-align: left;
+
+    background: var(--true-menu-background);
+    color: var(--true-menu-color);
+
+}
+
+#main-tree ul {
+    list-style-type: none;
+    width: 100%;
+    font-family: Montserrat, sans-serif;
+    font-size: 11pt;
+}
+
+#main-tree ul li {
+    background-color: var(--true-menu-background);
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+#main-tree ul li a {
+    color: var(--true-menu-bar-letras);
+    text-decoration: none;
+    text-transform: none;
+    display: block;
+    padding: 5px 5px 5px 10px;
+
+}
+
+#main-tree ul li a:hover {
+    background-color: var(--true-menu-color);
+    color: var(--true-button-hover-background);
+}
+
