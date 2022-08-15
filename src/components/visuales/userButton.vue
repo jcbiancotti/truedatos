@@ -47,7 +47,7 @@ export default {
     data() {
         return {
             u: '',
-            usr: {nombre_completo: ''},
+            usr: {nombre: ''},
         }
     },
     methods: {

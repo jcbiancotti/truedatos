@@ -26,10 +26,10 @@ export default {
 
                 // Token válido, devuelve datos del usuario
                 if(global.DEBUG)
-                    console.log("auth.getUserLogged", "Token valido, devuelve datos del usuario", resultado.data, resultado.data.data.nombre_completo);
+                    console.log("auth.getUserLogged", "Token valido, devuelve datos del usuario", resultado.data, resultado.data.data.nombre);
                 
                 store.commit('marcaLogged', true);
-                store.commit('marcaFullName', resultado.data.data.nombre_completo); 
+                store.commit('marcaFullName', resultado.data.data.nombre); 
 
                 return resultado.data;
 

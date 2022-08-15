@@ -17,7 +17,7 @@ const currencySimbol = '€';
 if(PRODUCCION == true) {
     ENDPOINT_PATH = 'http://biancotti.es/trueback/';
 } else {
-    ENDPOINT_PATH = 'http://localhost/trueback/';
+    ENDPOINT_PATH = 'http://localhost/Backend22/';
 }
 
 export default

@@ -112,7 +112,7 @@ export default {
 
                             // Almacenar datos en localStorage
                             localStorage.token = result.data.token;
-                            localStorage.userFullName = result.data.nombre_completo;
+                            localStorage.userFullName = result.data.nombre;
 
                             auth.getUserLogged()
                             .then(() => {
